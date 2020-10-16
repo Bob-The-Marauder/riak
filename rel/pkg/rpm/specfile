@@ -97,7 +97,6 @@ cp -R %{relpath}/data/* \
 
 mkdir -p %{buildroot}%{_sysconfdir}/init.d
 install -m755 %{relpath}/etc/init.d/init.script  %{buildroot}%{_sysconfdir}/init.d/riak
-ln -s %{buildroot}%{_sbindir}/riak-debug %{buildroot_bin}/riak-debug
 # Needed to work around check-rpaths which seems to be hardcoded into recent
 # RPM releases
 export QA_RPATHS=3
@@ -122,6 +121,7 @@ fi
 
 %post
 # Post Installation Script
+ln -s /usr/sbin/riak-debug /usr/lib64/riak/bin/riak-debug 
 
 # For distros with SELinux (RHEL/Fedora)
 if [ `which selinuxenabled > /dev/null 2>&1` ] ; then
